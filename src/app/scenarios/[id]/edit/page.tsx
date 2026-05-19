@@ -9,7 +9,12 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
-import { getScenarioById, updateScenario, addStageToScenario, removeStageFromScenario } from '@/lib/storage'
+import {
+  getScenarioById,
+  updateScenario,
+  addStageToScenario,
+  removeStageFromScenario,
+} from '@/lib/storage'
 import type { Scenario, CreateScenarioFormData } from '@/types'
 
 const ICONS = ['🚀', '✨', '💻', '🎨', '📊', '🌐', '⚡', '🔥', '💡', '🎯', '📦', '🔧']
@@ -69,8 +74,12 @@ export default function EditScenarioPage() {
   const handleAddStage = () => {
     const stageName = stageInput.trim()
     if (stageName && scenario) {
-      addStageToScenario(params.id as string, stageName, COLORS[scenario.stages.length % COLORS.length])
-      setScenario(getScenarioById(params.id as string))
+      addStageToScenario(
+        params.id as string,
+        stageName,
+        COLORS[scenario.stages.length % COLORS.length]
+      )
+      setScenario(getScenarioById(params.id as string) || null)
       setStageInput('')
     }
   }
@@ -78,16 +87,16 @@ export default function EditScenarioPage() {
   const handleRemoveStage = (stageId: string) => {
     if (confirm('确定要删除这个阶段吗？与此阶段关联的资源将变为未分配状态。')) {
       removeStageFromScenario(params.id as string, stageId)
-      setScenario(getScenarioById(params.id as string))
+      setScenario(getScenarioById(params.id as string) || null)
     }
   }
 
   if (!scenario) {
     return (
-      <div className="min-h-screen flex flex-col">
+      <div className="flex min-h-screen flex-col">
         <Navbar />
-        <div className="flex-1 flex flex-col items-center justify-center">
-          <h2 className="text-xl font-semibold mb-2">场景不存在</h2>
+        <div className="flex flex-1 flex-col items-center justify-center">
+          <h2 className="mb-2 text-xl font-semibold">场景不存在</h2>
           <Button asChild>
             <Link href="/">返回首页</Link>
           </Button>
@@ -97,12 +106,12 @@ export default function EditScenarioPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex min-h-screen flex-col">
       <Navbar />
 
-      <main className="flex-1 container py-8 max-w-2xl">
+      <main className="container max-w-2xl flex-1 py-8">
         {/* Header */}
-        <div className="flex items-center gap-4 mb-8">
+        <div className="mb-8 flex items-center gap-4">
           <Button asChild variant="ghost" size="icon">
             <Link href={`/scenarios/${params.id}`}>
               <ArrowLeft className="h-5 w-5" />
@@ -148,7 +157,7 @@ export default function EditScenarioPage() {
                     <button
                       key={icon}
                       type="button"
-                      className={`text-2xl p-2 rounded-lg transition-colors ${
+                      className={`rounded-lg p-2 text-2xl transition-colors ${
                         formData.icon === icon
                           ? 'bg-primary text-primary-foreground'
                           : 'bg-secondary hover:bg-secondary/80'
@@ -169,8 +178,10 @@ export default function EditScenarioPage() {
                     <button
                       key={color}
                       type="button"
-                      className={`w-8 h-8 rounded-full transition-transform ${
-                        formData.color === color ? 'ring-2 ring-offset-2 ring-primary scale-110' : ''
+                      className={`h-8 w-8 rounded-full transition-transform ${
+                        formData.color === color
+                          ? 'ring-primary scale-110 ring-2 ring-offset-2'
+                          : ''
                       }`}
                       style={{ backgroundColor: color }}
                       onClick={() => setFormData({ ...formData, color })}
@@ -199,11 +210,11 @@ export default function EditScenarioPage() {
                   </Button>
                 </div>
                 {formData.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mt-2">
+                  <div className="mt-2 flex flex-wrap gap-2">
                     {formData.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-muted text-sm"
+                        className="bg-muted inline-flex items-center gap-1 rounded-full px-3 py-1 text-sm"
                       >
                         {tag}
                         <button
@@ -241,7 +252,7 @@ export default function EditScenarioPage() {
                   }}
                 />
                 <Button type="button" variant="outline" onClick={handleAddStage}>
-                  <Plus className="h-4 w-4 mr-2" />
+                  <Plus className="mr-2 h-4 w-4" />
                   添加阶段
                 </Button>
               </div>
@@ -252,10 +263,10 @@ export default function EditScenarioPage() {
                   {scenario.stages.map((stage, index) => (
                     <div
                       key={stage.id}
-                      className="flex items-center gap-3 p-3 rounded-lg bg-secondary"
+                      className="bg-secondary flex items-center gap-3 rounded-lg p-3"
                     >
                       <div
-                        className="w-3 h-3 rounded-full"
+                        className="h-3 w-3 rounded-full"
                         style={{ backgroundColor: stage.color || COLORS[index % COLORS.length] }}
                       />
                       <span className="flex-1 font-medium">{stage.name}</span>
@@ -263,7 +274,7 @@ export default function EditScenarioPage() {
                         type="button"
                         variant="ghost"
                         size="icon"
-                        className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
+                        className="text-destructive hover:text-destructive hover:bg-destructive/10 h-8 w-8"
                         onClick={() => handleRemoveStage(stage.id)}
                       >
                         <Trash2 className="h-4 w-4" />
@@ -274,7 +285,7 @@ export default function EditScenarioPage() {
               )}
 
               {scenario.stages.length === 0 && (
-                <div className="text-center text-muted-foreground py-4">
+                <div className="text-muted-foreground py-4 text-center">
                   暂无阶段，添加阶段来组织你的工作流
                 </div>
               )}
@@ -287,7 +298,7 @@ export default function EditScenarioPage() {
               <Link href={`/scenarios/${params.id}`}>取消</Link>
             </Button>
             <Button type="submit">
-              <Save className="h-4 w-4 mr-2" />
+              <Save className="mr-2 h-4 w-4" />
               保存
             </Button>
           </div>

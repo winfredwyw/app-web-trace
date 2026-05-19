@@ -24,7 +24,7 @@ export default function ScenarioDetailPage() {
 
   useEffect(() => {
     const id = params.id as string
-    setScenario(getScenarioById(id))
+    setScenario(getScenarioById(id) || null)
     setAllResources(getResources())
     setLoading(false)
   }, [params.id])
@@ -40,7 +40,7 @@ export default function ScenarioDetailPage() {
     if (confirm('确定要移除这个资源吗？')) {
       removeResourceFromScenario(params.id as string, resourceId)
       // 刷新数据
-      setScenario(getScenarioById(params.id as string))
+      setScenario(getScenarioById(params.id as string) || null)
     }
   }
 

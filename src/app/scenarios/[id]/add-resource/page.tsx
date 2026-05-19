@@ -20,7 +20,7 @@ export default function AddResourceToScenarioPage() {
 
   useEffect(() => {
     const id = params.id as string
-    setScenario(getScenarioById(id))
+    setScenario(getScenarioById(id) || null)
     setAllResources(getResources())
   }, [params.id])
 
@@ -52,7 +52,7 @@ export default function AddResourceToScenarioPage() {
   const handleAddResource = (resourceId: string) => {
     addResourceToScenario(params.id as string, resourceId, selectedStageId || undefined)
     // 刷新场景数据
-    setScenario(getScenarioById(params.id as string))
+    setScenario(getScenarioById(params.id as string) || null)
   }
 
   return (
