@@ -13,7 +13,6 @@ import type { Scenario, Resource } from '@/types'
 
 export default function AddResourceToScenarioPage() {
   const params = useParams()
-  const router = useRouter()
   const [scenario, setScenario] = useState<Scenario | null>(null)
   const [allResources, setAllResources] = useState<Resource[]>([])
   const [searchQuery, setSearchQuery] = useState('')
