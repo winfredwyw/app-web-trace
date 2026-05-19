@@ -9,6 +9,7 @@ services:
     restart: unless-stopped
     ports:
       - "3003:3000"
+      - "2222:22"
     environment:
       - NODE_ENV=production
     networks:
