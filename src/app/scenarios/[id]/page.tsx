@@ -6,8 +6,13 @@ import { useParams, useRouter } from 'next/navigation'
 import { ArrowLeft, Edit, Trash2, Calendar, Plus, Tag, ExternalLink } from 'lucide-react'
 import { Navbar } from '@/components/layout/navbar'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { getScenarioById, getResources, deleteScenario, removeResourceFromScenario } from '@/lib/storage'
+import { Card, CardContent } from '@/components/ui/card'
+import {
+  getScenarioById,
+  getResources,
+  deleteScenario,
+  removeResourceFromScenario,
+} from '@/lib/storage'
 import type { Scenario, Resource } from '@/types'
 
 export default function ScenarioDetailPage() {
@@ -41,9 +46,9 @@ export default function ScenarioDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col">
+      <div className="flex min-h-screen flex-col">
         <Navbar />
-        <div className="flex-1 flex items-center justify-center">
+        <div className="flex flex-1 items-center justify-center">
           <div className="text-muted-foreground">加载中...</div>
         </div>
       </div>
@@ -52,11 +57,11 @@ export default function ScenarioDetailPage() {
 
   if (!scenario) {
     return (
-      <div className="min-h-screen flex flex-col">
+      <div className="flex min-h-screen flex-col">
         <Navbar />
-        <div className="flex-1 flex flex-col items-center justify-center">
-          <div className="text-4xl mb-4">😕</div>
-          <h2 className="text-xl font-semibold mb-2">场景不存在</h2>
+        <div className="flex flex-1 flex-col items-center justify-center">
+          <div className="mb-4 text-4xl">😕</div>
+          <h2 className="mb-2 text-xl font-semibold">场景不存在</h2>
           <p className="text-muted-foreground mb-4">该场景可能已被删除</p>
           <Button asChild>
             <Link href="/">返回首页</Link>
@@ -82,12 +87,12 @@ export default function ScenarioDetailPage() {
     .filter(Boolean) as Resource[]
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex min-h-screen flex-col">
       <Navbar />
 
-      <main className="flex-1 container py-8">
+      <main className="container flex-1 py-8">
         {/* Header */}
-        <div className="flex items-center gap-4 mb-8">
+        <div className="mb-8 flex items-center gap-4">
           <Button asChild variant="ghost" size="icon">
             <Link href="/">
               <ArrowLeft className="h-5 w-5" />
@@ -105,26 +110,26 @@ export default function ScenarioDetailPage() {
           <div className="flex gap-2">
             <Button asChild variant="outline">
               <Link href={`/scenarios/${scenario.id}/add-resource`}>
-              <Plus className="h-4 w-4 mr-2" />
+                <Plus className="mr-2 h-4 w-4" />
                 添加资源
               </Link>
             </Button>
             <Button asChild variant="outline">
               <Link href={`/scenarios/${scenario.id}/edit`}>
-                <Edit className="h-4 w-4 mr-2" />
+                <Edit className="mr-2 h-4 w-4" />
                 编辑
               </Link>
             </Button>
             <Button variant="destructive" onClick={handleDelete}>
-              <Trash2 className="h-4 w-4 mr-2" />
+              <Trash2 className="mr-2 h-4 w-4" />
               删除
             </Button>
           </div>
         </div>
 
         {/* Metadata */}
-        <div className="flex flex-wrap gap-4 mb-8">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <div className="mb-8 flex flex-wrap gap-4">
+          <div className="text-muted-foreground flex items-center gap-2 text-sm">
             <Calendar className="h-4 w-4" />
             创建于 {new Date(scenario.createdAt).toLocaleDateString('zh-CN')}
           </div>
@@ -133,7 +138,7 @@ export default function ScenarioDetailPage() {
               {scenario.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-muted text-xs"
+                  className="bg-muted inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs"
                 >
                   <Tag className="h-3 w-3" />
                   {tag}
@@ -142,7 +147,7 @@ export default function ScenarioDetailPage() {
             </div>
           )}
           <div
-            className="px-2 py-1 rounded text-xs font-medium"
+            className="rounded px-2 py-1 text-xs font-medium"
             style={{
               backgroundColor: scenario.color ? `${scenario.color}20` : 'var(--accent)',
               color: scenario.color || 'var(--accent-foreground)',
@@ -156,20 +161,20 @@ export default function ScenarioDetailPage() {
         <div className="space-y-6">
           {resourcesByStage.map(({ stage, resources }) => (
             <div key={stage.id}>
-              <div className="flex items-center gap-3 mb-4">
+              <div className="mb-4 flex items-center gap-3">
                 <div
-                  className="w-1 h-6 rounded-full"
+                  className="h-6 w-1 rounded-full"
                   style={{ backgroundColor: stage.color || 'var(--muted)' }}
                 />
                 <h2 className="text-lg font-semibold">{stage.name}</h2>
                 {stage.description && (
-                  <span className="text-sm text-muted-foreground">{stage.description}</span>
+                  <span className="text-muted-foreground text-sm">{stage.description}</span>
                 )}
-                <span className="text-sm text-muted-foreground">({resources.length} 个资源)</span>
+                <span className="text-muted-foreground text-sm">({resources.length} 个资源)</span>
               </div>
 
               {resources.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                   {resources.map((resource) => (
                     <Card key={resource.id} className="group">
                       <CardContent className="p-4">
@@ -178,19 +183,19 @@ export default function ScenarioDetailPage() {
                             <span className="text-2xl">{resource.icon || '🌐'}</span>
                             <div>
                               <h3 className="font-medium">{resource.name}</h3>
-                              <p className="text-sm text-muted-foreground line-clamp-1">
+                              <p className="text-muted-foreground line-clamp-1 text-sm">
                                 {resource.description}
                               </p>
                             </div>
                           </div>
-                          <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <div className="flex gap-1 opacity-0 transition-opacity group-hover:opacity-100">
                             <Button
                               variant="ghost"
                               size="icon"
                               className="h-8 w-8"
                               onClick={() => handleRemoveResource(resource.id)}
                             >
-                              <Trash2 className="h-4 w-4 text-destructive" />
+                              <Trash2 className="text-destructive h-4 w-4" />
                             </Button>
                             <Button
                               variant="ghost"
@@ -202,7 +207,7 @@ export default function ScenarioDetailPage() {
                             </Button>
                           </div>
                         </div>
-                        <div className="mt-2 text-xs text-muted-foreground">
+                        <div className="text-muted-foreground mt-2 text-xs">
                           {resource.category}
                         </div>
                       </CardContent>
@@ -211,7 +216,7 @@ export default function ScenarioDetailPage() {
                 </div>
               ) : (
                 <Card className="border-dashed">
-                  <CardContent className="p-6 text-center text-muted-foreground">
+                  <CardContent className="text-muted-foreground p-6 text-center">
                     <p>暂无资源</p>
                   </CardContent>
                 </Card>
@@ -222,8 +227,10 @@ export default function ScenarioDetailPage() {
           {/* Unassigned Resources */}
           {unassignedResources.length > 0 && (
             <div>
-              <h2 className="text-lg font-semibold mb-4">未分配资源 ({unassignedResources.length})</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <h2 className="mb-4 text-lg font-semibold">
+                未分配资源 ({unassignedResources.length})
+              </h2>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {unassignedResources.map((resource) => (
                   <Card key={resource.id} className="group">
                     <CardContent className="p-4">
@@ -232,19 +239,19 @@ export default function ScenarioDetailPage() {
                           <span className="text-2xl">{resource.icon || '🌐'}</span>
                           <div>
                             <h3 className="font-medium">{resource.name}</h3>
-                            <p className="text-sm text-muted-foreground line-clamp-1">
+                            <p className="text-muted-foreground line-clamp-1 text-sm">
                               {resource.description}
                             </p>
                           </div>
                         </div>
-                        <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="flex gap-1 opacity-0 transition-opacity group-hover:opacity-100">
                           <Button
                             variant="ghost"
                             size="icon"
                             className="h-8 w-8"
                             onClick={() => handleRemoveResource(resource.id)}
                           >
-                            <Trash2 className="h-4 w-4 text-destructive" />
+                            <Trash2 className="text-destructive h-4 w-4" />
                           </Button>
                           <Button
                             variant="ghost"
@@ -267,12 +274,12 @@ export default function ScenarioDetailPage() {
           {scenario.resources.length === 0 && (
             <Card className="border-dashed">
               <CardContent className="p-8 text-center">
-                <div className="text-4xl mb-4">📦</div>
-                <h3 className="font-semibold mb-2">暂无资源</h3>
+                <div className="mb-4 text-4xl">📦</div>
+                <h3 className="mb-2 font-semibold">暂无资源</h3>
                 <p className="text-muted-foreground mb-4">向这个场景添加资源，开始组织你的工作流</p>
                 <Button asChild>
                   <Link href={`/scenarios/${scenario.id}/add-resource`}>
-                    <Plus className="h-4 w-4 mr-2" />
+                    <Plus className="mr-2 h-4 w-4" />
                     添加资源
                   </Link>
                 </Button>

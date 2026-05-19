@@ -43,7 +43,7 @@ export default function CreateResourcePage() {
       alert('请输入资源 URL')
       return
     }
-    const resource = createResource(formData)
+    createResource(formData)
     router.push('/resources')
   }
 
@@ -60,12 +60,12 @@ export default function CreateResourcePage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex min-h-screen flex-col">
       <Navbar />
 
-      <main className="flex-1 container py-8 max-w-2xl">
+      <main className="container max-w-2xl flex-1 py-8">
         {/* Header */}
-        <div className="flex items-center gap-4 mb-8">
+        <div className="mb-8 flex items-center gap-4">
           <Button asChild variant="ghost" size="icon">
             <Link href="/resources">
               <ArrowLeft className="h-5 w-5" />
@@ -121,7 +121,7 @@ export default function CreateResourcePage() {
                     <button
                       key={icon}
                       type="button"
-                      className={`text-2xl p-2 rounded-lg transition-colors ${
+                      className={`rounded-lg p-2 text-2xl transition-colors ${
                         formData.icon === icon
                           ? 'bg-primary text-primary-foreground'
                           : 'bg-secondary hover:bg-secondary/80'
@@ -139,7 +139,7 @@ export default function CreateResourcePage() {
                 <Label htmlFor="category">分类</Label>
                 <select
                   id="category"
-                  className="w-full px-3 py-2 rounded-md border bg-background"
+                  className="bg-background w-full rounded-md border px-3 py-2"
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                 >
@@ -156,13 +156,15 @@ export default function CreateResourcePage() {
                 <Label>类型</Label>
                 <div className="flex gap-4">
                   {TYPES.map((type) => (
-                    <label key={type.value} className="flex items-center gap-2 cursor-pointer">
+                    <label key={type.value} className="flex cursor-pointer items-center gap-2">
                       <input
                         type="radio"
                         name="type"
                         value={type.value}
                         checked={formData.type === type.value}
-                        onChange={(e) => setFormData({ ...formData, type: e.target.value as ResourceType })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, type: e.target.value as ResourceType })
+                        }
                         className="rounded"
                       />
                       <span>{type.label}</span>
@@ -191,11 +193,11 @@ export default function CreateResourcePage() {
                   </Button>
                 </div>
                 {formData.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mt-2">
+                  <div className="mt-2 flex flex-wrap gap-2">
                     {formData.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-muted text-sm"
+                        className="bg-muted inline-flex items-center gap-1 rounded-full px-3 py-1 text-sm"
                       >
                         {tag}
                         <button
@@ -214,12 +216,12 @@ export default function CreateResourcePage() {
           </Card>
 
           {/* 提交按钮 */}
-          <div className="flex justify-end gap-4 mt-6">
+          <div className="mt-6 flex justify-end gap-4">
             <Button asChild variant="outline">
               <Link href="/resources">取消</Link>
             </Button>
             <Button type="submit">
-              <Save className="h-4 w-4 mr-2" />
+              <Save className="mr-2 h-4 w-4" />
               创建资源
             </Button>
           </div>

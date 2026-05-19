@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams } from 'next/navigation'
 import { ArrowLeft, Plus, Search } from 'lucide-react'
 import { Navbar } from '@/components/layout/navbar'
 import { Button } from '@/components/ui/button'
@@ -27,10 +27,10 @@ export default function AddResourceToScenarioPage() {
 
   if (!scenario) {
     return (
-      <div className="min-h-screen flex flex-col">
+      <div className="flex min-h-screen flex-col">
         <Navbar />
-        <div className="flex-1 flex flex-col items-center justify-center">
-          <h2 className="text-xl font-semibold mb-2">场景不存在</h2>
+        <div className="flex flex-1 flex-col items-center justify-center">
+          <h2 className="mb-2 text-xl font-semibold">场景不存在</h2>
           <Button asChild>
             <Link href="/">返回首页</Link>
           </Button>
@@ -57,12 +57,12 @@ export default function AddResourceToScenarioPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex min-h-screen flex-col">
       <Navbar />
 
-      <main className="flex-1 container py-8">
+      <main className="container flex-1 py-8">
         {/* Header */}
-        <div className="flex items-center gap-4 mb-8">
+        <div className="mb-8 flex items-center gap-4">
           <Button asChild variant="ghost" size="icon">
             <Link href={`/scenarios/${params.id}`}>
               <ArrowLeft className="h-5 w-5" />
@@ -83,7 +83,7 @@ export default function AddResourceToScenarioPage() {
             <CardContent>
               <div className="flex flex-wrap gap-2">
                 <button
-                  className={`px-4 py-2 rounded-md transition-colors ${
+                  className={`rounded-md px-4 py-2 transition-colors ${
                     !selectedStageId ? 'bg-primary text-primary-foreground' : 'bg-secondary'
                   }`}
                   onClick={() => setSelectedStageId('')}
@@ -93,7 +93,7 @@ export default function AddResourceToScenarioPage() {
                 {scenario.stages.map((stage) => (
                   <button
                     key={stage.id}
-                    className={`px-4 py-2 rounded-md transition-colors flex items-center gap-2 ${
+                    className={`flex items-center gap-2 rounded-md px-4 py-2 transition-colors ${
                       selectedStageId === stage.id
                         ? 'text-white'
                         : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
@@ -110,9 +110,9 @@ export default function AddResourceToScenarioPage() {
         )}
 
         {/* Search */}
-        <div className="flex gap-4 items-center mb-6">
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+        <div className="mb-6 flex items-center gap-4">
+          <div className="relative max-w-md flex-1">
+            <Search className="text-muted-foreground absolute top-2.5 left-2.5 h-4 w-4" />
             <Input
               placeholder="搜索资源..."
               className="pl-9"
@@ -122,7 +122,7 @@ export default function AddResourceToScenarioPage() {
           </div>
           <Button asChild variant="outline">
             <Link href="/resources/new">
-              <Plus className="h-4 w-4 mr-2" />
+              <Plus className="mr-2 h-4 w-4" />
               创建新资源
             </Link>
           </Button>
@@ -132,20 +132,22 @@ export default function AddResourceToScenarioPage() {
         <div className="space-y-3">
           {availableResources.length > 0 ? (
             availableResources.map((resource) => (
-              <Card key={resource.id} className="group hover:shadow-md transition-shadow">
-                <CardContent className="p-4 flex items-center justify-between">
+              <Card key={resource.id} className="group transition-shadow hover:shadow-md">
+                <CardContent className="flex items-center justify-between p-4">
                   <div className="flex items-center gap-3">
                     <span className="text-2xl">{resource.icon || '🌐'}</span>
                     <div>
                       <h3 className="font-medium">{resource.name}</h3>
-                      <p className="text-sm text-muted-foreground line-clamp-1">
+                      <p className="text-muted-foreground line-clamp-1 text-sm">
                         {resource.description}
                       </p>
                     </div>
-                    <span className="px-2 py-0.5 rounded bg-muted text-xs">{resource.category}</span>
+                    <span className="bg-muted rounded px-2 py-0.5 text-xs">
+                      {resource.category}
+                    </span>
                   </div>
                   <Button onClick={() => handleAddResource(resource.id)}>
-                    <Plus className="h-4 w-4 mr-2" />
+                    <Plus className="mr-2 h-4 w-4" />
                     添加
                   </Button>
                 </CardContent>
@@ -154,14 +156,14 @@ export default function AddResourceToScenarioPage() {
           ) : (
             <Card className="border-dashed">
               <CardContent className="p-8 text-center">
-                <div className="text-4xl mb-4">📦</div>
-                <h3 className="font-semibold mb-2">没有更多资源可添加</h3>
+                <div className="mb-4 text-4xl">📦</div>
+                <h3 className="mb-2 font-semibold">没有更多资源可添加</h3>
                 <p className="text-muted-foreground mb-4">
                   所有资源都已添加到此场景，或者没有匹配的搜索结果
                 </p>
                 <Button asChild>
                   <Link href="/resources/new">
-                    <Plus className="h-4 w-4 mr-2" />
+                    <Plus className="mr-2 h-4 w-4" />
                     创建新资源
                   </Link>
                 </Button>
