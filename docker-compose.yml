@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  web-trace:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: web-trace
+    restart: unless-stopped
+    ports:
+      - "3003:3000"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - web-trace-network
+
+networks:
+  web-trace-network:
+    driver: bridge

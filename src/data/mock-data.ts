@@ -1,0 +1,287 @@
+import type { Scenario, Resource } from '@/types'
+import { v4 as uuidv4 } from 'uuid'
+
+// ============================================
+// Mock 资源数据
+// ============================================
+export const MOCK_RESOURCES: Resource[] = [
+  // 设计工具
+  {
+    id: uuidv4(),
+    name: 'Figma',
+    url: 'https://figma.com',
+    description: '基于浏览器的界面设计工具，支持团队协作',
+    icon: '🎨',
+    category: '设计工具',
+    tags: ['设计', 'UI', '协作'],
+    type: 'tool',
+    rating: 5,
+    usageCount: 1520,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: uuidv4(),
+    name: 'Canva',
+    url: 'https://canva.com',
+    description: '在线图形设计平台，提供海量模板',
+    icon: '✨',
+    category: '设计工具',
+    tags: ['设计', '模板'],
+    type: 'tool',
+    rating: 4,
+    usageCount: 980,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  // 开发工具
+  {
+    id: uuidv4(),
+    name: 'Cursor',
+    url: 'https://cursor.sh',
+    description: 'AI 驱动的代码编辑器',
+    icon: '💻',
+    category: '开发工具',
+    tags: ['开发', 'AI', '编辑器'],
+    type: 'tool',
+    rating: 5,
+    usageCount: 2340,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: uuidv4(),
+    name: 'GitHub',
+    url: 'https://github.com',
+    description: '代码托管和版本控制平台',
+    icon: '🐙',
+    category: '开发工具',
+    tags: ['开发', 'Git', '协作'],
+    type: 'service',
+    rating: 5,
+    usageCount: 5600,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: uuidv4(),
+    name: 'VS Code',
+    url: 'https://code.visualstudio.com',
+    description: '微软推出的轻量级代码编辑器',
+    icon: '📝',
+    category: '开发工具',
+    tags: ['开发', '编辑器'],
+    type: 'tool',
+    rating: 5,
+    usageCount: 4500,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  // 部署服务
+  {
+    id: uuidv4(),
+    name: 'Vercel',
+    url: 'https://vercel.com',
+    description: '前端应用部署平台，支持 Next.js 最佳',
+    icon: '▲',
+    category: '部署服务',
+    tags: ['部署', '前端', 'Next.js'],
+    type: 'service',
+    rating: 5,
+    usageCount: 1890,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: uuidv4(),
+    name: 'Cloudflare',
+    url: 'https://cloudflare.com',
+    description: 'CDN 和边缘计算平台',
+    icon: '☁️',
+    category: '部署服务',
+    tags: ['部署', 'CDN', '安全'],
+    type: 'service',
+    rating: 4,
+    usageCount: 2100,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  // AI 工具
+  {
+    id: uuidv4(),
+    name: 'Claude',
+    url: 'https://claude.ai',
+    description: 'Anthropic 推出的 AI 助手',
+    icon: '🤖',
+    category: 'AI 工具',
+    tags: ['AI', '写作', '编程'],
+    type: 'service',
+    rating: 5,
+    usageCount: 3200,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: uuidv4(),
+    name: 'ChatGPT',
+    url: 'https://chat.openai.com',
+    description: 'OpenAI 推出的 AI 对话助手',
+    icon: '💬',
+    category: 'AI 工具',
+    tags: ['AI', '对话', '写作'],
+    type: 'service',
+    rating: 5,
+    usageCount: 8900,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  // 营销工具
+  {
+    id: uuidv4(),
+    name: 'Google Analytics',
+    url: 'https://analytics.google.com',
+    description: '网站流量分析工具',
+    icon: '📊',
+    category: '营销工具',
+    tags: ['分析', '数据'],
+    type: 'service',
+    rating: 4,
+    usageCount: 6700,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+]
+
+// ============================================
+// Mock 场景数据
+// ============================================
+export const MOCK_SCENARIOS: Scenario[] = [
+  {
+    id: uuidv4(),
+    name: '独立开发者发布 SaaS',
+    description: '从设计到上线的完整 SaaS 开发工作流',
+    icon: '🚀',
+    tags: ['SaaS', '独立开发', '全流程'],
+    type: 'advanced',
+    color: '#3B82F6',
+    stages: [
+      { id: uuidv4(), name: '设计', order: 0, color: '#3B82F6' },
+      { id: uuidv4(), name: '开发', order: 1, color: '#10B981' },
+      { id: uuidv4(), name: '部署', order: 2, color: '#F59E0B' },
+      { id: uuidv4(), name: '增长', order: 3, color: '#EF4444' },
+    ],
+    resources: [],
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: uuidv4(),
+    name: 'AI 内容创作',
+    description: '利用 AI 工具进行内容创作的完整流程',
+    icon: '✨',
+    tags: ['AI', '内容创作', '写作'],
+    type: 'basic',
+    color: '#8B5CF6',
+    stages: [
+      { id: uuidv4(), name: '创意构思', order: 0, color: '#8B5CF6' },
+      { id: uuidv4(), name: '内容生成', order: 1, color: '#EC4899' },
+      { id: uuidv4(), name: '编辑优化', order: 2, color: '#06B6D4' },
+    ],
+    resources: [],
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: uuidv4(),
+    name: 'Web 前端开发',
+    description: '现代前端开发的常用工具链',
+    icon: '🌐',
+    tags: ['前端', 'Web', '开发'],
+    type: 'basic',
+    color: '#10B981',
+    stages: [
+      { id: uuidv4(), name: '开发环境', order: 0, color: '#10B981' },
+      { id: uuidv4(), name: '代码编写', order: 1, color: '#3B82F6' },
+      { id: uuidv4(), name: '测试构建', order: 2, color: '#F59E0B' },
+    ],
+    resources: [],
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+]
+
+// 为场景添加资源关联
+MOCK_SCENARIOS[0].resources = [
+  {
+    id: uuidv4(),
+    resourceId: MOCK_RESOURCES.find((r) => r.name === 'Figma')!.id,
+    stageId: MOCK_SCENARIOS[0].stages[0].id,
+    order: 0,
+  },
+  {
+    id: uuidv4(),
+    resourceId: MOCK_RESOURCES.find((r) => r.name === 'Canva')!.id,
+    stageId: MOCK_SCENARIOS[0].stages[0].id,
+    order: 1,
+  },
+  {
+    id: uuidv4(),
+    resourceId: MOCK_RESOURCES.find((r) => r.name === 'Cursor')!.id,
+    stageId: MOCK_SCENARIOS[0].stages[1].id,
+    order: 0,
+  },
+  {
+    id: uuidv4(),
+    resourceId: MOCK_RESOURCES.find((r) => r.name === 'GitHub')!.id,
+    stageId: MOCK_SCENARIOS[0].stages[1].id,
+    order: 1,
+  },
+  {
+    id: uuidv4(),
+    resourceId: MOCK_RESOURCES.find((r) => r.name === 'Vercel')!.id,
+    stageId: MOCK_SCENARIOS[0].stages[2].id,
+    order: 0,
+  },
+  {
+    id: uuidv4(),
+    resourceId: MOCK_RESOURCES.find((r) => r.name === 'Cloudflare')!.id,
+    stageId: MOCK_SCENARIOS[0].stages[2].id,
+    order: 1,
+  },
+  {
+    id: uuidv4(),
+    resourceId: MOCK_RESOURCES.find((r) => r.name === 'Google Analytics')!.id,
+    stageId: MOCK_SCENARIOS[0].stages[3].id,
+    order: 0,
+  },
+]
+
+MOCK_SCENARIOS[1].resources = [
+  {
+    id: uuidv4(),
+    resourceId: MOCK_RESOURCES.find((r) => r.name === 'Claude')!.id,
+    stageId: MOCK_SCENARIOS[1].stages[0].id,
+    order: 0,
+  },
+  {
+    id: uuidv4(),
+    resourceId: MOCK_RESOURCES.find((r) => r.name === 'ChatGPT')!.id,
+    stageId: MOCK_SCENARIOS[1].stages[1].id,
+    order: 0,
+  },
+]
+
+MOCK_SCENARIOS[2].resources = [
+  {
+    id: uuidv4(),
+    resourceId: MOCK_RESOURCES.find((r) => r.name === 'VS Code')!.id,
+    stageId: MOCK_SCENARIOS[2].stages[1].id,
+    order: 0,
+  },
+  {
+    id: uuidv4(),
+    resourceId: MOCK_RESOURCES.find((r) => r.name === 'GitHub')!.id,
+    stageId: MOCK_SCENARIOS[2].stages[1].id,
+    order: 1,
+  },
+]
