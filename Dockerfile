@@ -14,6 +14,9 @@ RUN npm ci
 # 复制源码
 COPY . .
 
+# 确保 public 目录存在（兼容没有 public 目录的情况）
+RUN mkdir -p public
+
 # 构建应用
 RUN npm run build
 
